@@ -12,10 +12,12 @@ import {
   User,
 } from "lucide-react";
 import { useDashboard } from "@/hooks/use-dashboard";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 
 export function Header() {
   const { toggleSidebar, toggleAiPanel } = useDashboard();
+  const { logout } = useAuth();
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
@@ -106,7 +108,10 @@ export function Header() {
                   </button>
                 </div>
                 <div className="border-t border-white/5 py-1">
-                  <button className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-rose-400 hover:bg-white/5 transition-colors">
+                  <button
+                    onClick={() => { setProfileOpen(false); logout(); }}
+                    className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-rose-400 hover:bg-white/5 transition-colors"
+                  >
                     <LogOut className="w-4 h-4" />
                     Sign out
                   </button>
